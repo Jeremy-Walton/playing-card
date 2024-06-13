@@ -1,19 +1,28 @@
 // Lit
 import { LitElement, css, html } from 'lit'
-import { customElement, state } from 'lit/decorators.js'
+import { customElement, property } from 'lit/decorators.js'
 import Deck from './models/Deck'
+import PlayingCard from './models/PlayingCard'
 
 @customElement('op-card-deck')
 export class OpCardDeck extends LitElement {
 
-  @state()
+  @property({ type: Object })
   deck: Deck
 
   constructor() {
     super()
-    this.deck = new Deck()
+    this.deck ??= new Deck()
+  }
 
-    this.deck.shuffle()
+  addCard(card: PlayingCard) {
+    this.deck.cards.push(card)
+    this.requestUpdate()
+  }
+
+  removeCard() {
+    this.deck.cards.pop()
+    this.requestUpdate()
   }
 
   shuffle() {

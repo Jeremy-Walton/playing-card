@@ -1,17 +1,69 @@
-.flex {
-  display: flex;
+:root {
+  --border-width: 1px;
+  --color-border: gray;
+
+  --space-small: 0.5rem;
+  --space-medium: 1rem;
+
+  --radius: 5px;
+
+  --border-all: inset 0 0 0 var(--border-width);
+  --border-bottom: 0 var(--border-width) 0 0;
+
+  --color-primary-h: 209;
+  --color-primary-s: 38%;
+
+  --color-primary-base: hsl(var(--color-primary-h), var(--color-primary-s), 30%);
+  --color-primary-on-base: hsl(var(--color-primary-h), var(--color-primary-s), 100%);
+  --color-primary-plus-one: hsl(var(--color-primary-h), var(--color-primary-s), 40%);
+  --color-primary-on-plus-one: hsl(var(--color-primary-h), var(--color-primary-s), 100%);
 }
 
-.flex-col {
+body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-medium);
+}
+
+.v-stack {
+  display: flex;
   flex-direction: column;
 }
 
 .gap-md {
-  gap: 1rem;
+  gap: var(--space-medium);
 }
 
 .player-container {
   display: flex;
-  gap: 5px;
+  gap: var(--space-medium);
   align-items: center;
+}
+
+.divider {
+  width: 100%;
+  height: var(--border-width);
+  box-shadow: var(--border-bottom) var(--color-border);
+}
+
+button {
+  appearance: none;
+  padding: var(--space-small) var(--space-medium);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  background-color: var(--color-primary-base);
+  color: var(--color-primary-on-base);
+
+  &:hover {
+    background-color: var(--color-primary-plus-one);
+    color: var(--color-primary-on-plus-one);
+  }
+}
+
+select {
+  padding: var(--space-small) var(--space-medium);
+  border-radius: var(--radius);
+  border: none;
+  box-shadow: var(--border-all) var(--color-border);
 }
