@@ -7,73 +7,20 @@
     <title>Web Component Playing Card</title>
     <link rel="stylesheet" href="./src/index.css" />
     <script type="module" src="/src/op-playing-card.ts"></script>
+    <script type="module" src="/src/op-card-deck.ts"></script>
   </head>
-  <body>
-    <div class="card-container card-container--all">
-      <div class="card-container">
-        <op-playing-card rank="2" suit="S"></op-playing-card>
-        <op-playing-card rank="3" suit="S"></op-playing-card>
-        <op-playing-card rank="4" suit="S"></op-playing-card>
-        <op-playing-card rank="5" suit="S"></op-playing-card>
-        <op-playing-card rank="6" suit="S"></op-playing-card>
-        <op-playing-card rank="7" suit="S"></op-playing-card>
-        <op-playing-card rank="8" suit="S"></op-playing-card>
-        <op-playing-card rank="9" suit="S"></op-playing-card>
-        <op-playing-card rank="10" suit="S"></op-playing-card>
-        <op-playing-card rank="J" suit="S"></op-playing-card>
-        <op-playing-card rank="Q" suit="S"></op-playing-card>
-        <op-playing-card rank="K" suit="S"></op-playing-card>
-        <op-playing-card rank="A" suit="S"></op-playing-card>
-        <op-playing-card rank="A" suit="S" faceDown></op-playing-card>
-      </div>
-      <div class="card-container">
-        <op-playing-card rank="2" suit="C"></op-playing-card>
-        <op-playing-card rank="3" suit="C"></op-playing-card>
-        <op-playing-card rank="4" suit="C"></op-playing-card>
-        <op-playing-card rank="5" suit="C"></op-playing-card>
-        <op-playing-card rank="6" suit="C"></op-playing-card>
-        <op-playing-card rank="7" suit="C"></op-playing-card>
-        <op-playing-card rank="8" suit="C"></op-playing-card>
-        <op-playing-card rank="9" suit="C"></op-playing-card>
-        <op-playing-card rank="10" suit="C"></op-playing-card>
-        <op-playing-card rank="J" suit="C"></op-playing-card>
-        <op-playing-card rank="Q" suit="C"></op-playing-card>
-        <op-playing-card rank="K" suit="C"></op-playing-card>
-        <op-playing-card rank="A" suit="C"></op-playing-card>
-        <op-playing-card rank="A" suit="C" faceDown></op-playing-card>
-      </div>
-      <div class="card-container">
-        <op-playing-card rank="2" suit="H"></op-playing-card>
-        <op-playing-card rank="3" suit="H"></op-playing-card>
-        <op-playing-card rank="4" suit="H"></op-playing-card>
-        <op-playing-card rank="5" suit="H"></op-playing-card>
-        <op-playing-card rank="6" suit="H"></op-playing-card>
-        <op-playing-card rank="7" suit="H"></op-playing-card>
-        <op-playing-card rank="8" suit="H"></op-playing-card>
-        <op-playing-card rank="9" suit="H"></op-playing-card>
-        <op-playing-card rank="10" suit="H"></op-playing-card>
-        <op-playing-card rank="J" suit="H"></op-playing-card>
-        <op-playing-card rank="Q" suit="H"></op-playing-card>
-        <op-playing-card rank="K" suit="H"></op-playing-card>
-        <op-playing-card rank="A" suit="H"></op-playing-card>
-        <op-playing-card rank="A" suit="H" faceDown></op-playing-card>
-      </div>
-      <div class="card-container">
-        <op-playing-card rank="2" suit="D"></op-playing-card>
-        <op-playing-card rank="3" suit="D"></op-playing-card>
-        <op-playing-card rank="4" suit="D"></op-playing-card>
-        <op-playing-card rank="5" suit="D"></op-playing-card>
-        <op-playing-card rank="6" suit="D"></op-playing-card>
-        <op-playing-card rank="7" suit="D"></op-playing-card>
-        <op-playing-card rank="8" suit="D"></op-playing-card>
-        <op-playing-card rank="9" suit="D"></op-playing-card>
-        <op-playing-card rank="10" suit="D"></op-playing-card>
-        <op-playing-card rank="J" suit="D"></op-playing-card>
-        <op-playing-card rank="Q" suit="D"></op-playing-card>
-        <op-playing-card rank="K" suit="D"></op-playing-card>
-        <op-playing-card rank="A" suit="D"></op-playing-card>
-        <op-playing-card rank="A" suit="D" faceDown></op-playing-card>
-      </div>
+  <body class="flex flex-col gap-md">
+    <div class="player-container">
+      <op-card-deck id="deck-1"></op-card-deck>
+      <button onclick="document.getElementById('deck-1').shuffle()">Shuffle</button>
+    </div>
+    <div class="player-container">
+      <op-card-deck id="deck-2"></op-card-deck>
+      <button onclick="document.getElementById('deck-2').shuffle()">Shuffle</button>
+    </div>
+    <div class="player-container">
+      <op-card-deck id="deck-3"></op-card-deck>
+      <button onclick="document.getElementById('deck-3').shuffle()">Shuffle</button>
     </div>
   </body>
 </html>
