@@ -42,6 +42,8 @@ export class OpPlayingCard extends LitElement {
     super()
 
     this.card ??= new PlayingCard(this.rank, this.suit, this.faceDown)
+
+    this.addEventListener('click', (_event) => this.click())
   }
 
   attributeChangedCallback(name: string, _old: string | null, value: string | null): void {
@@ -50,6 +52,11 @@ export class OpPlayingCard extends LitElement {
     if (name === 'rank' || name === 'suit' || name === 'faceDown') {
       this.card = new PlayingCard(this.rank, this.suit, this.faceDown)
     }
+  }
+
+  click() {
+    this.card.faceDown = !this.card.faceDown
+    this.requestUpdate()
   }
 
   #isRed() {
@@ -138,6 +145,12 @@ export class OpPlayingCard extends LitElement {
 
       font-size: calc(var(--scale) * 1.25rem);
       box-sizing: border-box;
+    }
+
+    :host(:hover) {
+      cursor: pointer;
+      --shadow-color: red;
+      user-select: none;
     }
 
     :host(.red) {

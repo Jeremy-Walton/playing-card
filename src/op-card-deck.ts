@@ -34,8 +34,16 @@ export class OpCardDeck extends LitElement {
       display: flex;
     }
 
+    op-playing-card {
+      z-index: 1;
+    }
+
     op-playing-card:not(:first-child) {
       margin-left: -4.5rem;
+    }
+
+    op-playing-card:hover {
+      z-index: 2;
     }
   `
 }
