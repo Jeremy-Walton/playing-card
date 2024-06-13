@@ -22,9 +22,13 @@ import qd from './assets/QD.png'
 import qh from './assets/QH.png'
 import qs from './assets/QS.png'
 import back from './assets/back.png'
+import PlayingCard from './models/PlayingCard'
 
 @customElement('op-playing-card')
 export class OpPlayingCard extends LitElement {
+  @property({ type: Object })
+  card: PlayingCard
+
   @property({ type: String })
   rank = 'A'
 
@@ -34,16 +38,30 @@ export class OpPlayingCard extends LitElement {
   @property({ type: Boolean })
   faceDown = false
 
+  constructor() {
+    super()
+
+    this.card ??= new PlayingCard(this.rank, this.suit, this.faceDown)
+  }
+
+  attributeChangedCallback(name: string, _old: string | null, value: string | null): void {
+    super.attributeChangedCallback(name, _old, value)
+
+    if (name === 'rank' || name === 'suit' || name === 'faceDown') {
+      this.card = new PlayingCard(this.rank, this.suit, this.faceDown)
+    }
+  }
+
   #isRed() {
-    return ['D', 'H'].includes(this.suit)
+    return ['D', 'H'].includes(this.card.suit)
   }
 
   #suitIcon() {
-    return this.#suitMap()[this.suit].suitImage ?? spade
+    return this.#suitMap()[this.card.suit].suitImage ?? spade
   }
 
   #faceCardImage() {
-    return this.#suitMap()[this.suit][this.rank] ?? ''
+    return this.#suitMap()[this.card.suit][this.card.rank] ?? ''
   }
 
   #suitMap(): { [index: string]: { [index: string]: string } } {
@@ -56,10 +74,10 @@ export class OpPlayingCard extends LitElement {
   }
 
   #renderSide(left = true) {
-    if (this.faceDown) { return null }
+    if (this.card.faceDown) { return null }
 
     const items = [
-      this.rank,
+      this.card.rank,
       html`<img class='suit' src=${this.#suitIcon()} alt='Suit' />`
     ]
 
@@ -72,12 +90,12 @@ export class OpPlayingCard extends LitElement {
   }
 
   #renderCenter() {
-    if (this.faceDown) {
+    if (this.card.faceDown) {
       return html`<img class='back' src=${back} />`
     }
 
-    return this.rank == 'J' || this.rank == 'Q' || this.rank == 'K'
-      ? html`<img class='face-card ${this.rank}' src=${this.#faceCardImage()} />`
+    return this.card.rank == 'J' || this.card.rank == 'Q' || this.card.rank == 'K'
+      ? html`<img class='face-card ${this.card.rank}' src=${this.#faceCardImage()} />`
       : html`<img class='suit' src=${this.#suitIcon()} alt='Suit' />`;
   }
 
