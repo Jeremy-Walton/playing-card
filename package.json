@@ -1,7 +1,7 @@
 {
   "name": "@jeremywalton/playing-card",
   "description": "Simple playing card and deck components using Lit",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Jeremy Walton",
   "license": "MIT",
   "type": "module",
@@ -24,7 +24,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc"
+    "build": "tsc && rsync -a src/assets dist/assets"
   },
   "dependencies": {
     "lit": "^3.1.2"
