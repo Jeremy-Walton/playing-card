@@ -27,10 +27,10 @@ export default class JWPlayingCard extends LitElement {
   @property({ type: String })
   suit = 'S'
 
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true })
   faceDown = false
 
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true })
   flippable = false
 
   constructor() {
@@ -44,10 +44,6 @@ export default class JWPlayingCard extends LitElement {
 
     this.faceDown = !this.faceDown
     this.requestUpdate()
-  }
-
-  #isRed() {
-    return ['D', 'H'].includes(this.suit)
   }
 
   #isFaceCard() {
@@ -78,10 +74,7 @@ export default class JWPlayingCard extends LitElement {
   #renderSide(left = true) {
     if (this.faceDown) { return null }
 
-    const items = [
-      this.rank,
-      this.#suitIcon()
-    ]
+    const items = [this.rank, this.#suitIcon()]
 
     return html`
       <div class='${left ? 'left' : 'right'}'>
@@ -97,14 +90,11 @@ export default class JWPlayingCard extends LitElement {
     }
 
     return this.#isFaceCard()
-      ? html`<img class='face-card ${this.rank}' src=${this.#faceCardImage()} />`
+      ? html`<img class='face-card' src=${this.#faceCardImage()} />`
       : this.#suitIcon()
   }
 
   render() {
-    this.classList.toggle('red', this.#isRed())
-    this.classList.toggle('flippable', this.flippable)
-
     return html`
       ${this.#renderSide(true)}
       <div class='center'>
@@ -146,23 +136,22 @@ export default class JWPlayingCard extends LitElement {
       user-select: none;
     }
 
-    :host(.flippable:hover) {
+    :host([flippable]:hover) {
       --current-shadow-color: var(--shadow-color-hover);
 
       cursor: pointer;
     }
 
-    :host(.red) {
+    :host([suit='H']), :host([suit='D']) {
       --current-color: var(--color-red);
     }
 
-    .suit {
-      width: calc(var(--scale) * 10px);
+    :host([Rank='J']) .center:has(.face-card) {
+      padding-inline: calc(var(--scale) * 5px);
     }
 
-    .face-card, .back {
-      width: 100%;
-    }
+    .face-card, .back { width: 100%; }
+    .suit { width: calc(var(--scale) * 10px); }
 
     .left, .right {
       display: flex;
@@ -170,28 +159,18 @@ export default class JWPlayingCard extends LitElement {
       flex-direction: column;
     }
 
-    .left {
-      justify-content: start;
-    }
-
-    .right {
-      justify-content: end;
-    }
+    .left { justify-content: start; }
+    .right { justify-content: end; }
 
     .center {
       display: flex;
+      align-items: center;
+      justify-content: center;
       padding-block: calc(var(--scale) * 10px);
-
-      &:has(.face-card.J) {
-        padding-inline: calc(var(--scale) * 5px);
-      }
 
       &:has(.back)  {
         padding-block: 0;
       }
-
-      align-items: center;
-      justify-content: center;
 
       .suit {
         width: calc(var(--scale) * 26px);
