@@ -58,6 +58,8 @@ export default class JWCardDeck extends LitElement {
 
   static styles = css`
     :host {
+      --overlap: -70px;
+
       display: flex;
     }
 
@@ -65,7 +67,7 @@ export default class JWCardDeck extends LitElement {
       z-index: 1;
 
       &:not(:first-child) {
-        margin-left: -4.5rem;
+        margin-left: var(--overlap);
       }
 
       &:hover {

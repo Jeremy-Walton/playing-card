@@ -1,5 +1,5 @@
 // Lit
-import { LitElement, TemplateResult, css, html, svg } from 'lit'
+import { LitElement, TemplateResult, css, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
 // Suit images
@@ -124,9 +124,9 @@ export default class JWPlayingCard extends LitElement {
       --y-aspect: 144px;
       --scale: 1;
 
-      --shadow-color-black: hsl(213, 33%, 71%);
-      --shadow-color-gray: hsl(213, 33%, 31%);
-      --current-shadow-color: var(--shadow-color-black);
+      --shadow-color: hsl(213, 33%, 71%);
+      --shadow-color-hover: hsl(213, 33%, 31%);
+      --current-shadow-color: var(--shadow-color);
 
       display: grid;
       grid-template-columns: auto 10fr auto;
@@ -147,7 +147,7 @@ export default class JWPlayingCard extends LitElement {
     }
 
     :host(.flippable:hover) {
-      --current-shadow-color: var(--shadow-color-gray);
+      --current-shadow-color: var(--shadow-color-hover);
 
       cursor: pointer;
     }
