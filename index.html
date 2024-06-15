@@ -5,74 +5,18 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Web Component Playing Card</title>
-    <link rel="stylesheet" href="./src/index.css" />
-    <script type="module" src="./src/application.ts"></script>
-    <script type="module" src="/src/op-playing-card.ts"></script>
-    <script type="module" src="/src/op-card-deck.ts"></script>
+    <link rel="stylesheet" href="./index.css" />
+    <script type="module" src="/src/components/jw-playing-card.ts"></script>
+    <script type="module" src="/src/components/jw-card-deck.ts"></script>
+    <script type="module" src="./application.ts"></script>
   </head>
   <body>
     <div class="player-container">
-      <div class="v-stack gap-md">
-        <button id="deck-1-shuffle">Shuffle</button>
-        <button id="deck-1-remove">Remove Last Card</button>
+      <jw-playing-card rank="A" suit="H"></jw-playing-card>
+      <jw-playing-card rank="3" suit="H" facedown></jw-playing-card>
       </div>
-      <form id="deck-1-form" class="v-stack gap-md">
-        <select id="rank" name="rank">
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-          <option value="J">J</option>
-          <option value="Q">Q</option>
-          <option value="K">K</option>
-          <option value="A">A</option>
-        </select>
-        <select id="suit" name="suit">
-          <option value="H">Hearts</option>
-          <option value="D">Diamonds</option>
-          <option value="C">Clubs</option>
-          <option value="S">Spades</option>
-        </select>
-        <button type="submit">Add Card</button>
-      </form>
-      <op-card-deck id="deck-1"></op-card-deck>
-    </div>
-    <div class="divider"></div>
     <div class="player-container">
-      <div class="v-stack gap-md">
-        <button id="deck-2-shuffle">Shuffle</button>
-        <button id="deck-2-remove">Remove Last Card</button>
-      </div>
-      <form id="deck-2-form" class="v-stack gap-md">
-        <select id="rank" name="rank">
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-          <option value="J">J</option>
-          <option value="Q">Q</option>
-          <option value="K">K</option>
-          <option value="A">A</option>
-        </select>
-        <select id="suit" name="suit">
-          <option value="H">Hearts</option>
-          <option value="D">Diamonds</option>
-          <option value="C">Clubs</option>
-          <option value="S">Spades</option>
-        </select>
-        <button type="submit">Add Card</button>
-      </form>
-      <op-card-deck id="deck-2"></op-card-deck>
+      <jw-card-deck id="deck"></jw-card-deck>
     </div>
   </body>
 </html>
