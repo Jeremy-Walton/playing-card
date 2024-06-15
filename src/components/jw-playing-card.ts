@@ -1,12 +1,9 @@
 // Lit
-import { LitElement, css, html } from 'lit'
+import { LitElement, TemplateResult, css, html, svg } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
 // Suit images
-import club from '../assets/Club.svg'
-import diamond from '../assets/Diamond.svg'
-import heart from '../assets/Heart.svg'
-import spade from '../assets/Spade.svg'
+import { club, diamond, heart, spade } from './icons'
 
 // Face card images
 import jc from '../assets/JC.png'
@@ -22,7 +19,6 @@ import qd from '../assets/QD.png'
 import qh from '../assets/QH.png'
 import qs from '../assets/QS.png'
 import back from '../assets/back.png'
-
 @customElement('jw-playing-card')
 export default class JWPlayingCard extends LitElement {
   @property({ type: String })
@@ -59,7 +55,7 @@ export default class JWPlayingCard extends LitElement {
   }
 
   #suitIcon() {
-    return this.#suitMap()[this.suit].suitImage ?? spade
+    return this.#suitImageMap()[this.suit] ?? spade
   }
 
   #faceCardImage() {
@@ -68,11 +64,15 @@ export default class JWPlayingCard extends LitElement {
 
   #suitMap(): { [index: string]: { [index: string]: string } } {
     return {
-      'C': { suitImage: club, 'J': jc, 'Q': qc, 'K': kc },
-      'D': { suitImage: diamond, 'J': jd, 'Q': qd, 'K': kd },
-      'H': { suitImage: heart, 'J': jh, 'Q': qh, 'K': kh },
-      'S': { suitImage: spade, 'J': js, 'Q': qs, 'K': ks },
+      'C': { 'J': jc, 'Q': qc, 'K': kc },
+      'D': { 'J': jd, 'Q': qd, 'K': kd },
+      'H': { 'J': jh, 'Q': qh, 'K': kh },
+      'S': { 'J': js, 'Q': qs, 'K': ks },
     }
+  }
+
+  #suitImageMap(): { [index: string]: TemplateResult } {
+    return { 'C': club, 'D': diamond, 'H': heart, 'S': spade }
   }
 
   #renderSide(left = true) {
@@ -80,7 +80,7 @@ export default class JWPlayingCard extends LitElement {
 
     const items = [
       this.rank,
-      html`<img class='suit' src=${this.#suitIcon()} alt='Suit' />`
+      this.#suitIcon()
     ]
 
     return html`
@@ -98,7 +98,7 @@ export default class JWPlayingCard extends LitElement {
 
     return this.#isFaceCard()
       ? html`<img class='face-card ${this.rank}' src=${this.#faceCardImage()} />`
-      : html`<img class='suit' src=${this.#suitIcon()} alt='Suit' />`;
+      : this.#suitIcon()
   }
 
   render() {
