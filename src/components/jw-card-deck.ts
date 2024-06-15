@@ -6,7 +6,7 @@ type Card = {
   rank: string
   suit: string
   faceDown: boolean
-  locked: boolean
+  flippable: boolean
 }
 
 @customElement('jw-card-deck')
@@ -30,7 +30,7 @@ export default class JWCardDeck extends LitElement {
   setup() {
     this.cards = JWCardDeck.SUITS.map(suit => {
       return JWCardDeck.RANKS.map(rank => {
-        return { rank, suit, faceDown: false, locked: false }
+        return { rank, suit, faceDown: false, flippable: false }
       })
     }).flat()
   }
@@ -51,7 +51,7 @@ export default class JWCardDeck extends LitElement {
   render() {
     return html`
       ${this.cards.map((card: Card) =>
-        html`<jw-playing-card rank=${card.rank} suit=${card.suit} .faceDown=${card.faceDown} .locked=${card.locked}></jw-playing-card>`
+        html`<jw-playing-card rank=${card.rank} suit=${card.suit} .faceDown=${card.faceDown} .flippable=${card.flippable}></jw-playing-card>`
       )}
     `
   }

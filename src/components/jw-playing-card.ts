@@ -35,7 +35,7 @@ export default class JWPlayingCard extends LitElement {
   faceDown = false
 
   @property({ type: Boolean })
-  locked = false
+  flippable = false
 
   constructor() {
     super()
@@ -44,7 +44,7 @@ export default class JWPlayingCard extends LitElement {
   }
 
   click() {
-    if (this.locked) { return }
+    if (!this.flippable) { return }
 
     this.faceDown = !this.faceDown
     this.requestUpdate()
@@ -103,7 +103,7 @@ export default class JWPlayingCard extends LitElement {
 
   render() {
     this.classList.toggle('red', this.#isRed())
-    this.classList.toggle('locked', this.locked)
+    this.classList.toggle('flippable', this.flippable)
 
     return html`
       ${this.#renderSide(true)}
@@ -146,7 +146,7 @@ export default class JWPlayingCard extends LitElement {
       user-select: none;
     }
 
-    :host(:hover:not(.locked)) {
+    :host(.flippable:hover) {
       --current-shadow-color: var(--shadow-color-gray);
 
       cursor: pointer;
