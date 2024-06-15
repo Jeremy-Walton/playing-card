@@ -51,7 +51,7 @@ The deck can be interacted with via javascript as well. It has the following met
 
 - `addCard(cardObject)`: Adds a card to the end of the deck.
 - `removeCard()`: Removes the last card from the deck.
-- `setup()`: Generates a standard deck of 52 cards.
+- `setup(faceDown = false, flippable = true)`: Generates a standard deck of 52 cards.
 - `shuffle()`: Shuffles the cards in the deck.
 
 ```html
@@ -62,7 +62,7 @@ The deck can be interacted with via javascript as well. It has the following met
 const deck = document.getElementById('deck');
 deck.addCard({ rank: 'A', suit: 'S', faceDown: false, flippable: true });
 deck.removeCard();
-deck.setup();
+deck.setup(true, false);
 deck.shuffle();
 ```
 

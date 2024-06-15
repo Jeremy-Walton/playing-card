@@ -27,10 +27,10 @@ export default class JWCardDeck extends LitElement {
     this.requestUpdate()
   }
 
-  setup() {
+  setup(faceDown = false, flippable = true) {
     this.cards = JWCardDeck.SUITS.map(suit => {
       return JWCardDeck.RANKS.map(rank => {
-        return { rank, suit, faceDown: false, flippable: false }
+        return { rank, suit, faceDown, flippable }
       })
     }).flat()
   }
