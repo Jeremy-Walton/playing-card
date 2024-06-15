@@ -1,5 +1,5 @@
 {
-  "name": "playing-card",
+  "name": "@jeremywalton/playing-card",
   "description": "Simple playing card and deck components using Lit",
   "version": "0.0.1",
   "author": "Jeremy Walton",
