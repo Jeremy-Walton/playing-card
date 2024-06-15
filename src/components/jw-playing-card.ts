@@ -4,31 +4,28 @@ import { customElement, property } from 'lit/decorators.js'
 
 // Suit images
 import club from './assets/Club.svg'
-import diamond from './assets/Diamond.svg'
-import heart from './assets/Heart.svg'
-import spade from './assets/Spade.svg'
+// import club from './assets/Club.svg'
+// import diamond from './assets/Diamond.svg'
+// import heart from './assets/Heart.svg'
+// import spade from './assets/Spade.svg'
 
-// Face card images
-import jc from './assets/JC.png'
-import jd from './assets/JD.png'
-import jh from './assets/JH.png'
-import js from './assets/JS.png'
-import kc from './assets/KC.png'
-import kd from './assets/KD.png'
-import kh from './assets/KH.png'
-import ks from './assets/KS.png'
-import qc from './assets/QC.png'
-import qd from './assets/QD.png'
-import qh from './assets/QH.png'
-import qs from './assets/QS.png'
-import back from './assets/back.png'
-import PlayingCard from './models/PlayingCard'
+// // Face card images
+// import jc from './assets/JC.png'
+// import jd from './assets/JD.png'
+// import jh from './assets/JH.png'
+// import js from './assets/JS.png'
+// import kc from './assets/KC.png'
+// import kd from './assets/KD.png'
+// import kh from './assets/KH.png'
+// import ks from './assets/KS.png'
+// import qc from './assets/QC.png'
+// import qd from './assets/QD.png'
+// import qh from './assets/QH.png'
+// import qs from './assets/QS.png'
+// import back from './assets/back.png'
 
-@customElement('op-playing-card')
-export class OpPlayingCard extends LitElement {
-  @property({ type: Object })
-  card: PlayingCard
-
+@customElement('jw-playing-card')
+export default class JWPlayingCard extends LitElement {
   @property({ type: String })
   rank = 'A'
 
@@ -38,37 +35,36 @@ export class OpPlayingCard extends LitElement {
   @property({ type: Boolean })
   faceDown = false
 
+  @property({ type: Boolean })
+  locked = false
+
   constructor() {
     super()
-
-    this.card ??= new PlayingCard(this.rank, this.suit, this.faceDown)
 
     this.addEventListener('click', (_event) => this.click())
   }
 
-  attributeChangedCallback(name: string, _old: string | null, value: string | null): void {
-    super.attributeChangedCallback(name, _old, value)
-
-    if (name === 'rank' || name === 'suit' || name === 'faceDown') {
-      this.card = new PlayingCard(this.rank, this.suit, this.faceDown)
-    }
-  }
-
   click() {
-    this.card.faceDown = !this.card.faceDown
+    if (this.locked) { return }
+
+    this.faceDown = !this.faceDown
     this.requestUpdate()
   }
 
   #isRed() {
-    return ['D', 'H'].includes(this.card.suit)
+    return ['D', 'H'].includes(this.suit)
+  }
+
+  #isFaceCard() {
+    return ['J', 'Q', 'K'].includes(this.rank)
   }
 
   #suitIcon() {
-    return this.#suitMap()[this.card.suit].suitImage ?? spade
+    return this.#suitMap()[this.suit].suitImage ?? spade
   }
 
   #faceCardImage() {
-    return this.#suitMap()[this.card.suit][this.card.rank] ?? ''
+    return this.#suitMap()[this.suit][this.rank] ?? ''
   }
 
   #suitMap(): { [index: string]: { [index: string]: string } } {
@@ -81,10 +77,10 @@ export class OpPlayingCard extends LitElement {
   }
 
   #renderSide(left = true) {
-    if (this.card.faceDown) { return null }
+    if (this.faceDown) { return null }
 
     const items = [
-      this.card.rank,
+      this.rank,
       html`<img class='suit' src=${this.#suitIcon()} alt='Suit' />`
     ]
 
@@ -97,17 +93,18 @@ export class OpPlayingCard extends LitElement {
   }
 
   #renderCenter() {
-    if (this.card.faceDown) {
+    if (this.faceDown) {
       return html`<img class='back' src=${back} />`
     }
 
-    return this.card.rank == 'J' || this.card.rank == 'Q' || this.card.rank == 'K'
-      ? html`<img class='face-card ${this.card.rank}' src=${this.#faceCardImage()} />`
+    return this.#isFaceCard()
+      ? html`<img class='face-card ${this.rank}' src=${this.#faceCardImage()} />`
       : html`<img class='suit' src=${this.#suitIcon()} alt='Suit' />`;
   }
 
   render() {
     this.classList.toggle('red', this.#isRed())
+    this.classList.toggle('locked', this.locked)
 
     return html`
       ${this.#renderSide(true)}
@@ -128,29 +125,32 @@ export class OpPlayingCard extends LitElement {
       --y-aspect: 144px;
       --scale: 1;
 
-      --shadow-color: hsl(213, 33%, 71%);
+      --shadow-color-black: hsl(213, 33%, 71%);
+      --shadow-color-gray: hsl(213, 33%, 31%);
+      --current-shadow-color: var(--shadow-color-black);
 
       display: grid;
       grid-template-columns: auto 10fr auto;
       background-color: white;
       color: var(--current-color);
-      box-shadow: 0px 0.125rem 0.25rem 0px var(--shadow-color);
-      border-radius: calc(var(--scale) * 0.5rem);
+      box-shadow: 0px 2px 4px 0px var(--current-shadow-color);
+      border-radius: calc(var(--scale) * 8px);
 
       width: calc(var(--scale) * var(--x-aspect));
       min-width: calc(var(--scale) * var(--x-aspect));
       height: calc(var(--scale) * var(--y-aspect));
       min-height: calc(var(--scale) * var(--y-aspect));
-      padding: calc(var(--scale) * 0.4rem);
+      padding: calc(var(--scale) * 6.4px);
 
-      font-size: calc(var(--scale) * 1.25rem);
+      font-size: calc(var(--scale) * 20px);
       box-sizing: border-box;
+      user-select: none;
     }
 
-    :host(:hover) {
+    :host(:hover:not(.locked)) {
+      --current-shadow-color: var(--shadow-color-gray);
+
       cursor: pointer;
-      --shadow-color: red;
-      user-select: none;
     }
 
     :host(.red) {
@@ -158,7 +158,7 @@ export class OpPlayingCard extends LitElement {
     }
 
     .suit {
-      width: calc(var(--scale) * 0.625rem);
+      width: calc(var(--scale) * 10px);
     }
 
     .face-card, .back {
@@ -181,10 +181,10 @@ export class OpPlayingCard extends LitElement {
 
     .center {
       display: flex;
-      padding-block: calc(var(--scale) * 0.625rem);
+      padding-block: calc(var(--scale) * 10px);
 
       &:has(.face-card.J) {
-        padding-inline: calc(var(--scale) * 0.3125rem);
+        padding-inline: calc(var(--scale) * 5px);
       }
 
       &:has(.back)  {
@@ -195,7 +195,7 @@ export class OpPlayingCard extends LitElement {
       justify-content: center;
 
       .suit {
-        width: calc(var(--scale) * 1.625rem);
+        width: calc(var(--scale) * 26px);
       }
     }
   `
@@ -203,6 +203,6 @@ export class OpPlayingCard extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'op-playing-card': OpPlayingCard
+    'op-playing-card': JWPlayingCard
   }
 }
