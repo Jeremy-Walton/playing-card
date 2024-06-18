@@ -1,13 +1,15 @@
 {
   "name": "@jeremywalton/playing-card",
   "description": "Simple playing card and deck components using Lit",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "author": "Jeremy Walton",
   "license": "MIT",
   "type": "module",
   "types": "dist/index.d.ts",
   "exports": {
-    ".": "./dist/components/*",
+    ".": {
+      "import": "./dist/index.js"
+    },
     "./dist/components/*": "./dist/components/*",
     "./dist/assets/*": "./dist/assets/*"
   },
