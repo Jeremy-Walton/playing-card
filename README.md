@@ -39,12 +39,24 @@ Cards have a variety of css variables that can be customized to change their app
 - `--x-aspect`: The width of the card if you need to adjust the aspect ratio.
 - `--y-aspect`: The height of the card if you need to adjust the aspect ratio.
 
+```css
+jw-playing-card {
+  --scale: 3;
+}
+```
+
 ### Card Deck
 
 Card Deck is a simple component that displays a deck of playing cards. Cards can be added or removed from the deck.
+Cards can either be slotted into the deck or added via javascript. When added via javascript, cards can be shuffled or reset to a standard deck of 52 cards.
 
 ```html
-<op-card-deck></op-card-deck>
+<jw-card-deck></jw-card-deck>
+
+<jw-card-deck>
+  <jw-playing-card rank="3" suit="H" facedown></jw-playing-card>
+  <jw-playing-card rank="A" suit="H"></jw-playing-card>
+</jw-card-deck>
 ```
 
 The deck can be interacted with via javascript as well. It has the following methods:
@@ -70,6 +82,14 @@ Decks have a variety of css variables that can be customized to change their app
 
 - `--overlap`: How much the cards overlap.
 
+You can also set variables of cards within the deck by using the card part selector.
+
+```css
+jw-card-deck::part(card) {
+  --scale: 3;
+}
+```
+
 ## Installation
 
 ```bash
@@ -83,15 +103,20 @@ npm install @jeremywalton/playing-card
 1. Import the component
 
 ```js
-import JWPlayingCard from "@jeremywalton/playing-card/dist/components/jw-playing-card.js";
-import JWCardDeck from "@jeremywalton/playing-card/dist/components/jw-card-deck.js";
+import { JWPlayingCard, JWCardDeck } from "@jeremywalton/playing-card";
 ```
 
 2. Use the component
 
 ```html
 <jw-playing-card rank='A' suit='S' faceDown flippable></jw-playing-card>
+
 <jw-card-deck></jw-card-deck>
+
+<jw-card-deck>
+  <jw-playing-card rank="3" suit="H" facedown></jw-playing-card>
+  <jw-playing-card rank="A" suit="H"></jw-playing-card>
+</jw-card-deck>
 ```
 
 ## Development

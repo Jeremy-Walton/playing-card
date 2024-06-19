@@ -49,9 +49,13 @@ export default class JWCardDeck extends LitElement {
   }
 
   render() {
+    if (this.cards.length === 0) {
+      return html`<slot> </slot>`
+    }
+
     return html`
       ${this.cards.map((card: Card) =>
-        html`<jw-playing-card rank=${card.rank} suit=${card.suit} .faceDown=${card.faceDown} .flippable=${card.flippable}></jw-playing-card>`
+        html`<jw-playing-card part='card' rank=${card.rank} suit=${card.suit} .faceDown=${card.faceDown} .flippable=${card.flippable}></jw-playing-card>`
       )}
     `
   }
@@ -63,16 +67,16 @@ export default class JWCardDeck extends LitElement {
       display: flex;
     }
 
-    jw-playing-card {
+    jw-playing-card, ::slotted(jw-playing-card) {
       z-index: 1;
+    }
 
-      &:not(:first-child) {
-        margin-left: var(--overlap);
-      }
+    jw-playing-card:not(:first-child), ::slotted(jw-playing-card:not(:first-child)) {
+      margin-left: var(--overlap);
+    }
 
-      &:hover {
-        z-index: 2;
-      }
+    jw-playing-card:hover, ::slotted(jw-playing-card:hover) {
+      z-index: 2;
     }
   `
 }

@@ -1,0 +1,7 @@
+/* jw-playing-card {
+  --scale: 2;
+}
+
+jw-card-deck::part(card) {
+  --scale: 2;
+} */
